@@ -214,6 +214,14 @@
             </configuration>
           </execution>
         </executions>
+        <configuration>
+          <image>
+            <env>
+              <!-- To support native profiling -->
+              <BP_NATIVE_IMAGE_BUILD_ARGUMENTS>-H:-DeleteLocalSymbols -H:+PreserveFramePointer</BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
+            </env>
+          </image>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
