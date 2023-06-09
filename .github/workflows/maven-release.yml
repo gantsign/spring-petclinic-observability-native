@@ -1,0 +1,33 @@
+name: Java release with Maven
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  release:
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: latest
+          java-version: '17'
+          components: native-image
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: maven
+      - name: Build with Maven Wrapper
+        run: >-
+          ./mvnw -B spring-boot:build-image -Pnative
+          -Ddocker.publishRegistry.username=${{ github.actor }}
+          -Ddocker.publishRegistry.password=${{ secrets.GITHUB_TOKEN }}
+          -Ddocker.publishRegistry.url=ghcr.io
+          -Dspring-boot.build-image.publish=true
+          -Dspring-boot.build-image.imageName=ghcr.io/${{ github.repository }}:latest
+          -Dorg.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
