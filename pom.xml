@@ -124,6 +124,12 @@
       <artifactId>micrometer-tracing-bridge-otel</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>io.opentelemetry.instrumentation</groupId>
+      <artifactId>opentelemetry-logback-appender-1.0</artifactId>
+      <version>1.26.0-alpha</version>
+      <scope>runtime</scope>
+    </dependency>
   </dependencies>
 
   <build>
