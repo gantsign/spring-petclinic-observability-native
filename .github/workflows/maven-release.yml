@@ -28,5 +28,6 @@ jobs:
           -Ddocker.publishRegistry.username=${{ github.actor }}
           -Ddocker.publishRegistry.password=${{ secrets.GITHUB_TOKEN }}
           -Ddocker.publishRegistry.url=ghcr.io
+          -Ddocker.publishRegistry.path=${{ github.repository }}
           -Dspring-boot.build-image.publish=true
           -Dspring-boot.build-image.imageName=ghcr.io/gantsign/spring-petclinic-observability-native:latest
