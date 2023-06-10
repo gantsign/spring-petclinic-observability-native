@@ -29,6 +29,9 @@
     <nohttp-checkstyle.version>0.0.11</nohttp-checkstyle.version>
     <spring-format.version>0.0.38</spring-format.version>
 
+    <!-- image properties -->
+    <org.opencontainers.image.source>https://github.com/spring-projects/spring-petclinic</org.opencontainers.image.source>
+
   </properties>
 
   <dependencies>
@@ -230,8 +233,17 @@
             <env>
               <!-- To support native profiling -->
               <BP_NATIVE_IMAGE_BUILD_ARGUMENTS>-H:-DeleteLocalSymbols -H:+PreserveFramePointer</BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
+              <!-- Need for GitHub packages -->
+              <BP_OCI_SOURCE>${org.opencontainers.image.source}</BP_OCI_SOURCE>
             </env>
           </image>
+          <docker>
+            <publishRegistry>
+              <url>${docker.publishRegistry.url}</url>
+              <username>${docker.publishRegistry.username}</username>
+              <password>${docker.publishRegistry.password}</password>
+            </publishRegistry>
+          </docker>
         </configuration>
       </plugin>
       <plugin>
